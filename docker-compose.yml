@@ -1,0 +1,39 @@
+version: '3'
+services:
+  app:
+    build: .
+    container_name: diagnosis_spinal_abnormalities
+    tty: true
+    working_dir: /home/nasser/diagnosis_spinal_abnormalities
+    volumes:
+      - ./user_home_dir/diagnosis_spinal_abnormalities:/home/nasser/diagnosis_spinal_abnormalities
+      - ./user_home_dir:/home/nasser
+  db:
+    image: postgres
+    container_name: diagnosis_spinal_abnormalities_database
+    restart: unless-stopped
+    tty: true
+    ports: 
+      - "5432:5432"
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_PASSWORD: P@$$w0rd
+      POSTGRES_USER: diagnosis_spinal_abnormalities
+      POSTGRES_DB: diagnosis_spinal_abnormalities
+
+    volumes:
+      - ./database_data:/var/lib/postgresql/data
+    networks:
+      - diagnosis_spinal_abnormalities
+
+networks:
+  diagnosis_spinal_abnormalities:
+    driver: bridge
+
+volumes:
+  diagnosis_spinal_abnormalities:
+    driver: local
+  user_home_dir:
+    driver: local
+  database_data:
+    driver: local
