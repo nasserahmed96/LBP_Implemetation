@@ -90,6 +90,7 @@ def draw_confusion_matrix(y_test_string, y_pred_string):
     ax.yaxis.set_ticklabels(['Abnormal', 'Normal'])
     plt.show()
 
+
 def predict(logreg_result, X_test_scaled):
     y_pred = logreg_result.predict(X_test_scaled)
     y_pred_string = y_pred.astype(str)
@@ -97,11 +98,13 @@ def predict(logreg_result, X_test_scaled):
     y_pred_string[np.where(y_pred_string == '1')] = 'Abnormal'
     return y_pred_string
 
+
 def test(y_test):
     y_test_string = y_test.astype(str)
     y_test_string[np.where(y_test_string == '0')] = 'Normal'
     y_test_string[np.where(y_test_string == '1')] = 'Abnormal'
     return y_test_string
+
 
 def run():
     lower_back_pain_data = get_data_with_columns()
